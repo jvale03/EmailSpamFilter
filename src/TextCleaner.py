@@ -58,4 +58,7 @@ def clean_text(text):
     return text
 
 
+if __name__=="__main__":
+    text = "I am a studier at the University of Minho. I likes to playing football and watch movies. https://www.geeksforgeeks.org/remove-urls-from-string-in-python/"
+    print(clean_text(text))
     
