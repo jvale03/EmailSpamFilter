@@ -84,3 +84,9 @@ Feature extraction is the middle layer that converts the words into integers/flo
 ### Algorithm Implementation
 
 `Naive Bayes` is a simple, probabilistic machine learning algorithm and using `sklearn` library saves a lot of time. Said that, by dividing the dataset into training and testing data (80% and 20% respectively) it is possible to apply the **feature extraction** algorithms to finally apply **Naive Baye** and predict the results by comparing them with the expected.
+
+
+### Refs: 
+1. Spam Filter Design: [link](https://towardsdatascience.com/email-spam-detection-1-2-b0e06a5c0472)
+2. Tfidf Vectorizer: [link](https://medium.com/@cmukesh8688/tf-idf-vectorizer-scikit-learn-dbc0244a911a)
+3. Naive Bayes Algorithm: [link](https://scikit-learn.org/stable/modules/naive_bayes.html)
