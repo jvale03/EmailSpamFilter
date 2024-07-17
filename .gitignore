@@ -1,4 +1,6 @@
-DataSet/
+DataSet/spam/*
+DataSet/email/*
+Model/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
