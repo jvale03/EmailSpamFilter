@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report
 from joblib import dump, load
+import time
 
 
 # paths para o dataset e model
@@ -72,6 +73,7 @@ def get_report():
 # carregar modelo para poder usa lo
 def load_model():
     print("\033[32mLoading model...\033[m")
+    time.sleep(1.5)
     try:
         count_vectorizer = load(model_path + '/count_vectorizer.joblib')
         tfidf_transformer = load(model_path + '/tfidf_transformer.joblib')

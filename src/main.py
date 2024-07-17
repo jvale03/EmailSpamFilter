@@ -1,5 +1,6 @@
 from DataPreprocessing import preprocess_dataset, preprocess_file, clean_text
 import NaiveBayesAlgorithm as NBA
+import time
 
 def main():
     choice = 0
@@ -40,7 +41,8 @@ def main():
             content = clean_text(content)
         
         result = NBA.test_input([content])
-
+        print("\033[32mAnalyzing email...\033[m")
+        time.sleep(1.5)
         if result != None and result == 0:
             print("\033[32mThis email is not spam!\033[m")
         elif result != None and result == 1:
