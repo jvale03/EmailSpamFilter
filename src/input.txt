@@ -1,0 +1,22 @@
+Subject: Urgent: Your Account is at Risk!
+
+Dear [Your Name],
+
+We regret to inform you that there has been suspicious activity detected on your account. For your security, we have temporarily disabled access to your account.
+
+To regain access and secure your account, please follow these steps immediately:
+1. Click on the link below to verify your identity:
+   [Malicious link]
+
+2. Enter your username and password to complete the verification process.
+
+Please note that failure to verify your account within 24 hours will result in permanent suspension. Your cooperation is highly appreciated as we work to protect your account.
+
+For any questions or concerns, please contact our support team at support@fakecompany.com.
+
+Thank you for your prompt attention to this matter.
+
+Sincerely,
+
+Account Security Team
+FakeCompany Inc.

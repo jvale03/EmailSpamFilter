@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from langdetect.lang_detect_exception import LangDetectException
 from langdetect import detect
+from bs4 import BeautifulSoup
 
 # obter as stop words em inglês e português
 stopwords_english = stopwords.words('english')
@@ -16,6 +17,11 @@ punc = '''!()-[]{};:'",<>./?@#$%^&*_~'''
 # paths para o dataset
 spam_path = "../DataSet/spam"
 email_path = "../DataSet/email"
+
+# paths para o dataset processado
+pro_spam_path = "../PreProcessedDataSet/spam"
+pro_email_path = "../PreProcessedDataSet/email"
+
 
 # resultado final dos ficheiros processados
 processed_files = 0
@@ -33,7 +39,7 @@ def convert_lower_case(text):
 
 # remover dígitos e pontuação
 def remove_digits_punctuation(text):
-    return "".join([i for i in text if not (i.isdigit() or i in punc)])
+    return re.sub(r'[\d.,!?;:(){}[\]\'"\\/<>@#$%^&*+=`~_-]', '', text)
 
 # remover as stop words
 def remove_stopwords(text, language):
@@ -57,17 +63,34 @@ def detect_language(text):
 def remove_url(text):
     return re.sub(r"https?://\S+|www\.\S+", "", text)
 
+# remover "received", "delivered-to" e outros cabeçalhos de email
+def remove_metadata(text):
+    pattern = r'(?im)^(received|delivered-to|return-path|message-id|mime-version|content-type|content-transfer-encoding|dkim-signature|x-|user-agent|precedence|reply-to|sender):.*(\n\s+.*)*'
+    return re.sub(pattern, "", text)
+
+# remover espaços em branco extras
+def remove_extra_whitespace(text):
+    return re.sub(r'\s+', ' ', text).strip()
+
+# remover HTML e CSS
+def remove_html(text):
+    soup = BeautifulSoup(text, "html.parser")
+    return soup.get_text()
+
 def clean_text(text):
     text = convert_lower_case(text)
     language = detect_language(text)
+    text = remove_metadata(text)
     text = remove_url(text)
-    text = remove_digits_punctuation(text)
-    text = remove_stopwords(text, language)
+    text = remove_html(text)
     text = word_lemmatizer(text)
+    text = remove_stopwords(text, language)
+    text = remove_digits_punctuation(text)
+    text = remove_extra_whitespace(text)
     return text
 
 # processar informação de um ficheiro
-def preprocess_file(file_path):
+def preprocess_file(file_path,pro_file_path):
     global processed_files
     global error_files
     try:
@@ -75,7 +98,7 @@ def preprocess_file(file_path):
             text = file.read()
             text = clean_text(text)
         
-        with open(file_path, "w", encoding='utf-8', errors='replace') as file:
+        with open(pro_file_path, "w", encoding='utf-8', errors='replace') as file:
             file.write(text)
 
         processed_files += 1
@@ -92,24 +115,20 @@ def preprocess_file(file_path):
     
 
 # processar individualmente cada ficheiro de uma diretoria
-def preprocess_directory(dataset_path):
+def preprocess_directory(dataset_path, processed_path):
     for file_path in os.listdir(dataset_path):
         file = os.path.join(dataset_path,file_path)
+        preprocessed_file = os.path.join(processed_path,file_path)
         if os.path.isfile(file):
-            preprocess_file(file)
+            preprocess_file(file,preprocessed_file)
 
 # processar cada diretoria 
 def preprocess_dataset():
     print("\033[32mProcessing DataSet...\033[m")
-    preprocess_directory(spam_path)
-    preprocess_directory(email_path)
+    preprocess_directory(spam_path, pro_spam_path)
+    preprocess_directory(email_path, pro_email_path)
     print(f"\033[32m{processed_files} files processed!\033[m")
     if error_files!=0:
         print(f"\033[31m{error_files} files not processed!\033[m")
 
-
-if __name__=="__main__":
-    text = "I am a studier at the University of Minho. I likes to playing football and watch movies. https://www.geeksforgeeks.org/remove-urls-from-string-in-python/"
-    print(clean_text(text))
-    preprocess_dataset()
     

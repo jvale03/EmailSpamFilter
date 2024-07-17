@@ -1,5 +1,7 @@
 DataSet/spam/*
 DataSet/email/*
+PreProcessedDataSet/spam/*
+PreProcessedDataSet/email/*
 Model/*
 
 # Byte-compiled / optimized / DLL files
