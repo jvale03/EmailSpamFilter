@@ -90,3 +90,19 @@ Feature extraction is the middle layer that converts the words into integers/flo
 1. Spam Filter Design: [link](https://towardsdatascience.com/email-spam-detection-1-2-b0e06a5c0472)
 2. Tfidf Vectorizer: [link](https://medium.com/@cmukesh8688/tf-idf-vectorizer-scikit-learn-dbc0244a911a)
 3. Naive Bayes Algorithm: [link](https://scikit-learn.org/stable/modules/naive_bayes.html)
+
+
+### Model
+With some more effort I combined several datasets and obtained a very efficient model that I make available here.
+
+#### Model stats 
+
+
+| Class | Precision | Recall | F1-Score | Support |
+|--------|-----------|--------|----------|---------|
+| Normal      | 0.95      | 0.99   | 0.97     | 8661     |
+| Spam      | 0.99      | 0.95   | 0.97     | 9238     |
+| **Total**      | **0.97**      | **0.97**   | **0.97**     | **17899**     |
+
+
+To use it, just ignore the **Dataset** steps (options 1 and 2 when running the program) and test your inputs!
